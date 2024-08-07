@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news_api/screens/articles_screen/presentation/view/headline_articles_view.dart';
 
 void main() {
@@ -10,8 +11,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HeadLineArticles(),
+    return const ProviderScope(
+      child: MaterialApp(
+        home: HeadLineArticles(),
+      ),
     );
   }
 }

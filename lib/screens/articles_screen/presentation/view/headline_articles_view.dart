@@ -13,9 +13,7 @@ class HeadLineArticles extends ConsumerWidget {
     SchedulerBinding.instance.addPostFrameCallback(
         (_) => ref.read(newsNotifierProvider.notifier).getHeadLineArticles());
     return const Scaffold(
-      body: Center(
-        child: HeadLineArticlesList(),
-      ),
+      body: HeadLineArticlesList(),
     );
   }
 }

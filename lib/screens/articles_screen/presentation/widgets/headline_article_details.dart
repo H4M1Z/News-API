@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_api/screens/articles_screen/presentation/widgets/headline_article_btn.dart';
+import 'package:news_api/screens/articles_screen/presentation/widgets/headline_article_btns.dart';
 
 import '../../../../core/utils/constants.dart';
 import '../../../../core/utils/styles.dart';
@@ -8,11 +8,10 @@ import '../../domain/models/article.dart';
 class ArticleDetails extends StatelessWidget {
   const ArticleDetails({super.key, required this.article});
   final Article article;
-  //...PADDING VALUES
-  static const _textPaddingFromTop = 0.03;
+  //...CONSTANT VALUES
+  static const _textMaxLines = 3;
   @override
   Widget build(BuildContext context) {
-    final Size(:height) = MediaQuery.sizeOf(context);
     return Column(
       children: [
         Expanded(
@@ -38,15 +37,11 @@ class ArticleDetails extends StatelessWidget {
         ),
         Expanded(
           flex: Flexes.flexEighteen,
-          child: Padding(
-            padding: EdgeInsets.only(
-              top: height * _textPaddingFromTop,
-            ),
-            child: Text(
-              article.description,
-              style: AppTextStyles.newsTitleStyle.copyWith(
-                fontWeight: FontWeight.normal,
-              ),
+          child: Text(
+            article.description,
+            maxLines: _textMaxLines,
+            style: AppTextStyles.newsTitleStyle.copyWith(
+              fontWeight: FontWeight.normal,
             ),
           ),
         ),

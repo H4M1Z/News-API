@@ -15,7 +15,7 @@ class NewsNotifier extends Notifier<NewsStates> {
   NewsStates build() {
     //...DISPOSE OFF THE CONTROLLER AFTER USE TO PREVENT MEMORY LEAKS
     ref.onDispose(controller.dispose);
-    return const NewsInitialState();
+    return const NewsInitialState(hasMoreData: false);
   }
 
   //...SOURCE
@@ -57,6 +57,7 @@ class NewsNotifier extends Notifier<NewsStates> {
         }
       }
     } catch (e) {
+      //...IF SOMETHING GOES WRONG RETURN ERROR STATE
       log(e.toString());
       state = NewsErrorState();
     }
