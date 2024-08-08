@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news_api/core/utils/common_functions.dart';
 import 'package:news_api/screens/articles_screen/presentation/controller/news_notifier.dart';
 import 'package:news_api/screens/articles_screen/presentation/controller/news_states.dart';
-import 'package:news_api/screens/articles_screen/presentation/widgets/headlines_widgets.dart';
+import 'package:news_api/screens/articles_screen/presentation/widgets/headline_articles_widgets.dart';
 
 class HeadLineArticlesList extends ConsumerWidget {
   const HeadLineArticlesList({super.key});
