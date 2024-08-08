@@ -20,8 +20,16 @@ abstract class NewsApiService {
   fetch({required String endPoint}) async {
     try {
       final url = '$baseUrl$endPoint';
-      var response = await get(Uri.parse(url));
-      return response.isSuccessful ? jsonDecode(response.body) : null;
+      var response = await get(
+        Uri.parse(
+          url,
+        ),
+      );
+      return response.isSuccessful
+          ? jsonDecode(
+              response.body,
+            )
+          : null;
     } catch (e) {
       log(e.toString());
       return null;

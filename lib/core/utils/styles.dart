@@ -16,6 +16,6 @@ class AppTextStyles {
   static const newsBtnStyle = TextStyle(
     color: AppColors.whiteColor,
     fontWeight: FontWeight.w600,
-    fontSize: 13,
+    fontSize: 10,
   );
 }

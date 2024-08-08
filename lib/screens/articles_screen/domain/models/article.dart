@@ -12,6 +12,8 @@ class Article {
   final String urlToImage;
   final String publishedAt;
   final String content;
+  static const defaultImage =
+      'https://images.unsplash.com/photo-1523995462485-3d171b5c8fa9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fG5ld3MlMjBhcnRpY2xlfGVufDB8fDB8fHww';
   Article({
     required this.source,
     required this.author,
@@ -65,8 +67,7 @@ class Article {
       title: map['title'] ?? '',
       description: map['description'] ?? '',
       url: map['url'] ?? '',
-      urlToImage: map['urlToImage'] ??
-          'https://images.unsplash.com/photo-1523995462485-3d171b5c8fa9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fG5ld3MlMjBhcnRpY2xlfGVufDB8fDB8fHww',
+      urlToImage: map['urlToImage'] ?? defaultImage,
       publishedAt: map['publishedAt'] ?? '',
       content: map['content'] ?? '',
     );

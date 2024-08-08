@@ -27,10 +27,11 @@ class ArticleDetails extends StatelessWidget {
           ),
         ),
         Expanded(
-          flex: Flexes.flexTen,
+          flex: 6,
           child: Center(
             child: Text(
               article.title,
+              maxLines: 2,
               style: AppTextStyles.newsTitleStyle,
             ),
           ),

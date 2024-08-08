@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:news_api/core/utils/colors.dart';
 import 'package:news_api/screens/articles_screen/presentation/controller/news_notifier.dart';
 import 'package:news_api/screens/articles_screen/presentation/widgets/headline_article_btns.dart';
 import 'package:news_api/screens/articles_screen/presentation/widgets/headline_article_view.dart';
@@ -19,15 +21,19 @@ class ArticlesLoadedWidget extends ConsumerStatefulWidget {
 class _ArticlesState extends ConsumerState<ArticlesLoadedWidget> {
   //...CONSTANT VALUES
   static const _paddingFromBottom = 0.02;
-  static const _loadingStrokeWidth = 2.0;
-
-  late final NewsNotifier newsNotifier;
+  //...CONTROLLERS
+  final ScrollController _scrollController = ScrollController();
   @override
   void initState() {
-    newsNotifier = ref.read(newsNotifierProvider.notifier);
-    //.....THIS FUNCTION WILL BE TRIGGERED EVERY TIME WHEN WE SCROLL BUT WE WILL ONLY GET THE ARTICLES WHEN THE CONTROLLER WILL REACH ITS MAXIMUM POSITION.
-    newsNotifier.controller.addListener(newsNotifier.getHeadLineArticles);
     super.initState();
+    _scrollController.addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    //...DISPOSE OFF THE CONTROLLER TO PREVENT ANY MEMORY LEAKS
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -35,7 +41,7 @@ class _ArticlesState extends ConsumerState<ArticlesLoadedWidget> {
     final Size(:height) = MediaQuery.sizeOf(context);
     return Center(
       child: ListView.custom(
-        controller: newsNotifier.controller,
+        controller: _scrollController,
         childrenDelegate: SliverChildBuilderDelegate(
           childCount: widget.articles.length + 1,
           (context, index) {
@@ -48,11 +54,13 @@ class _ArticlesState extends ConsumerState<ArticlesLoadedWidget> {
                   article: widget.articles[index],
                 ),
               );
+              //...SHOW LOADING WHEN THE INDEX IS GREATER THEN THE ARTICLES LENGTH
             } else {
               if (widget.hasMoreData) {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    strokeWidth: _loadingStrokeWidth,
+                return Center(
+                  child: LoadingAnimationWidget.staggeredDotsWave(
+                    color: AppColors.darkPurple,
+                    size: height * 0.08,
                   ),
                 );
               } else {
@@ -64,15 +72,23 @@ class _ArticlesState extends ConsumerState<ArticlesLoadedWidget> {
       ),
     );
   }
+
+  //.....THIS FUNCTION WILL BE TRIGGERED EVERY TIME WHEN WE SCROLL BUT WE WILL ONLY GET THE ARTICLES WHEN THE CONTROLLER WILL REACH ITS MAXIMUM POSITION.
+  void _scrollListener() {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      ref.read(newsNotifierProvider.notifier).getHeadLineArticles();
+    }
+  }
 }
 
 //...ERROR WIDGET TO SHOW IN CASE OR ERROR
 class ArticlesErrorWidget extends StatelessWidget {
   const ArticlesErrorWidget({super.key});
-  //...IMAGES PATHS
+  //...IMAGE PATH
   static const _errorImage = 'assets/images/error_page.jpg';
   //...PADDING VALUES
-  static const _paddingFromTop = 0.6;
+  static const _paddingFromTop = 0.59;
   static const _paddingFromLeft = 0.1;
   @override
   Widget build(BuildContext context) {

@@ -25,4 +25,7 @@ final class HeadlineArticlesLoadedState extends NewsStates {
 }
 
 @immutable
-final class NewsErrorState extends NewsStates {}
+final class NewsErrorState extends NewsStates {
+  final String errorMessage;
+  const NewsErrorState({required this.errorMessage});
+}
