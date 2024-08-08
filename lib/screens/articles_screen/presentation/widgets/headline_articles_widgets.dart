@@ -21,6 +21,7 @@ class ArticlesLoadedWidget extends ConsumerStatefulWidget {
 class _ArticlesState extends ConsumerState<ArticlesLoadedWidget> {
   //...CONSTANT VALUES
   static const _paddingFromBottom = 0.02;
+  static const _loadingSize = 0.08;
   //...CONTROLLERS
   final ScrollController _scrollController = ScrollController();
   @override
@@ -60,7 +61,7 @@ class _ArticlesState extends ConsumerState<ArticlesLoadedWidget> {
                 return Center(
                   child: LoadingAnimationWidget.staggeredDotsWave(
                     color: AppColors.darkPurple,
-                    size: height * 0.08,
+                    size: height * _loadingSize,
                   ),
                 );
               } else {

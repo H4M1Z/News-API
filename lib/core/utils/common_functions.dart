@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_api/core/utils/colors.dart';
 
+//...CUSTOM SNACKBAR
 showSnackBar(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
@@ -17,7 +18,7 @@ showSnackBar(BuildContext context, String message) {
       ),
       backgroundColor: AppColors.darkYellow,
       behavior: SnackBarBehavior.floating,
-      width: 350,
+      width: 300,
       shape: ContinuousRectangleBorder(
         borderRadius: BorderRadius.circular(
           30,
